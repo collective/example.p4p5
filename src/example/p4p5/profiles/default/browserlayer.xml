@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<layers>
+  <layer
+    name="example.p4p5"
+    interface="example.p4p5.interfaces.IExampleP4P5Layer"
+  />
+</layers>
