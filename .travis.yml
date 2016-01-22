@@ -17,10 +17,6 @@ install:
 - bin/buildout -Nq
 script:
 - bin/test
-- bin/createcoverage
-after_success:
-- pip install coveralls
-- coveralls
 notifications:
   email:
   - ebrehault@gmail.com
