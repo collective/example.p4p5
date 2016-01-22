@@ -20,6 +20,22 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="plone4"
+        title="example.p4p5 (Plone4)"
+        directory="profiles/plone4"
+        description="Installs the example.p4p5 add-on Plone4 specific configuration"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
+    <genericsetup:registerProfile
+        name="plone5"
+        title="example.p4p5 (Plone5)"
+        directory="profiles/plone5"
+        description="Installs the example.p4p5 add-on Plone5 specific configuration"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
+
     <genericsetup:importStep
         name="example.p4p5-postInstall"
         title="example.p4p5 post_install import step"

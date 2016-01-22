@@ -1,0 +1,14 @@
+<model xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns="http://namespaces.plone.org/supermodel/schema">
+  <schema>
+    <field name="status" type="zope.schema.Set">
+      <description/>
+      <title>Status</title>
+      <value_type type="zope.schema.Choice">
+        <values>
+          <element>In progress</element>
+          <element>Done</element>
+        </values>
+      </value_type>
+    </field>
+  </schema>
+</model>

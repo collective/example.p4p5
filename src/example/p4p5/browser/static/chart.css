@@ -1,0 +1,6 @@
+#chart .done{
+    background-color: blue;
+}
+#chart .inprogress{
+    background-color: orange;
+}
