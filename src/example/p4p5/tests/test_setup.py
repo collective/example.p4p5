@@ -4,6 +4,7 @@ from example.p4p5.testing import EXAMPLE_P4P5_FUNCTIONAL_TESTING  # noqa
 import Globals
 from plone import api
 from plone.testing.z2 import Browser
+import transaction
 import unittest
 
 PROJECTNAME = 'example.p4p5'
@@ -42,3 +43,31 @@ class InstallTestCase(unittest.TestCase):
     def test_js_resources(self):
         self.browser.open(self.portal.absolute_url())
         self.assertTrue(JS in self.browser.contents)
+
+
+class UninstallTestCase(unittest.TestCase):
+
+    """Test that example.p4p5 is properly uninstalled."""
+
+    layer = EXAMPLE_P4P5_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        Globals.DevelopmentMode = True
+        self.portal = self.layer['portal']
+        self.browser = Browser(self.layer['app'])
+        self.qi = self.portal['portal_quickinstaller']
+
+        with api.env.adopt_roles(['Manager']):
+            self.qi.uninstallProducts(products=[PROJECTNAME])
+        transaction.commit()
+
+    def test_uninstall(self):
+        self.assertFalse(self.qi.isProductInstalled(PROJECTNAME))
+
+    def test_uninstall_css_resources(self):
+        self.browser.open(self.portal.absolute_url())
+        self.assertTrue(CSS not in self.browser.contents)
+
+    def test_uninstall_js_resources(self):
+        self.browser.open(self.portal.absolute_url())
+        self.assertTrue(JS not in self.browser.contents)

@@ -36,11 +36,12 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
-    <genericsetup:importStep
-        name="example.p4p5-postInstall"
-        title="example.p4p5 post_install import step"
-        description="Post install import step from example.p4p5"
-        handler=".setuphandlers.post_install">
-    </genericsetup:importStep>
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="example.p4p5 (uninstall)"
+        directory="profiles/uninstall"
+        description="Uninstalls example.p4p5"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
 </configure>

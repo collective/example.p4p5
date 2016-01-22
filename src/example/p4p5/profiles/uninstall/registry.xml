@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records prefix="plone.bundles/examplep4p5"
+            interface='Products.CMFPlone.interfaces.IBundleRegistry'
+            remove="true">
+  </records>
+
+</registry>
