@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
-from example.p4p5.testing import EXAMPLE_P4P5_INTEGRATION_TESTING  # noqa
+from example.p4p5.testing import EXAMPLE_P4P5_FUNCTIONAL_TESTING  # noqa
+import Globals
 from plone import api
-
+from plone.testing.z2 import Browser
 import unittest
 
 PROJECTNAME = 'example.p4p5'
@@ -15,11 +16,13 @@ class InstallTestCase(unittest.TestCase):
 
     """Test that example.p4p5 is properly installed."""
 
-    layer = EXAMPLE_P4P5_INTEGRATION_TESTING
+    layer = EXAMPLE_P4P5_FUNCTIONAL_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests."""
+        Globals.DevelopmentMode = True
         self.portal = self.layer['portal']
+        self.browser = Browser(self.layer['app'])
         self.qi = api.portal.get_tool('portal_quickinstaller')
 
     def test_product_installed(self):
@@ -33,34 +36,9 @@ class InstallTestCase(unittest.TestCase):
         self.assertIn(IExampleP4P5Layer, utils.registered_layers())
 
     def test_css_resources(self):
-        css_resource_ids = self.portal.portal_css.getResourceIds()
-        self.assertIn(CSS, css_resource_ids)
+        self.browser.open(self.portal.absolute_url())
+        self.assertTrue(CSS in self.browser.contents)
 
     def test_js_resources(self):
-        js_resource_ids = self.portal.portal_javascripts.getResourceIds()
-        self.assertIn(JS, js_resource_ids)
-
-
-class UninstallTestCase(unittest.TestCase):
-
-    """Test that example.p4p5 is properly uninstalled."""
-
-    layer = EXAMPLE_P4P5_INTEGRATION_TESTING
-
-    def setUp(self):
-        self.portal = self.layer['portal']
-        self.qi = self.portal['portal_quickinstaller']
-
-        with api.env.adopt_roles(['Manager']):
-            self.qi.uninstallProducts(products=[PROJECTNAME])
-
-    def test_uninstall(self):
-        self.assertFalse(self.qi.isProductInstalled(PROJECTNAME))
-
-    def test_uninstall_css_resources(self):
-        css_resource_ids = self.portal.portal_css.getResourceIds()
-        self.assertNotIn(CSS, css_resource_ids)
-
-    def test_uninstall_js_resources(self):
-        js_resource_ids = self.portal.portal_javascripts.getResourceIds()
-        self.assertNotIn(JS, js_resource_ids)
+        self.browser.open(self.portal.absolute_url())
+        self.assertTrue(JS in self.browser.contents)
