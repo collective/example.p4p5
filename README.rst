@@ -24,7 +24,7 @@ There are 3 Generic Setup installation profiles:
 - `plone4`, which contains JS and CSS declaration for Plone 4,
 - `plone5`, which contains JS and CSS declaration for Plone 5.
 
-The `default` profile is automatically imported when we install the add-on, and then we have to manually import `plone4` or `plone5` from the ZMI `portal_setup` depending on our current version of Plone.
+The `default` profile will automatically import the version specific profile depending on the portal's current version.
 
 Uninstall
 ---------

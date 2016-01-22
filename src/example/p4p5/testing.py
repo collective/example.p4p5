@@ -20,10 +20,6 @@ class ExampleP4P5Layer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'example.p4p5:default')
-        if PLONE_VERSION >= '5.0':
-            applyProfile(portal, 'example.p4p5:plone5')
-        else:
-            applyProfile(portal, 'example.p4p5:plone4')
 
     def uninstall(self, portal):
         with api.env.adopt_roles(['Manager']):

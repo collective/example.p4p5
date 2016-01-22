@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from plone import api
 
 
 def isNotCurrentProfile(context):
@@ -9,4 +10,15 @@ def post_install(context):
     """Post install script"""
     if isNotCurrentProfile(context):
         return
-    # Do something during the installation of this package
+    portal = api.portal.get()
+    setupTool = portal['portal_setup']
+    plone_version = api.env.plone_version()
+    if plone_version >= '5.0':
+        profileName = 'plone5'
+    else:
+        profileName = 'plone4'
+    profileId = 'profile-example.p4p5:%s' % (profileName, )
+    setupTool.runAllImportStepsFromProfile(profileId)
+
+    portal.clearCurrentSkin()
+    portal.setupCurrentSkin(portal.REQUEST)
