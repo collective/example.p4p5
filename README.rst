@@ -18,13 +18,20 @@ It contains:
 Installation
 ------------
 
-There are 3 Generic Setup profiles:
+There are 3 Generic Setup installation profiles:
 
 - `default`, which contains the non version-specific setup (in our case, that's the Task content-type),
 - `plone4`, which contains JS and CSS declaration for Plone 4,
 - `plone5`, which contains JS and CSS declaration for Plone 5.
 
 The `default` profile is automatically imported when we install the add-on, and then we have to manually import `plone4` or `plone5` from the ZMI `portal_setup` depending on our current version of Plone.
+
+Uninstall
+---------
+
+For Plone 4, just uninstall the product from the Quick Installer.
+
+For Plone 5, uninstall the product from the Quick Installer + import the `uninstall-plone5` profile from the ZMI `portal_setup`.
 
 Implementation
 --------------
