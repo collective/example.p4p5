@@ -58,8 +58,7 @@ class UninstallTestCase(unittest.TestCase):
         self.browser = Browser(self.layer['app'])
         self.qi = self.portal['portal_quickinstaller']
 
-        if PLONE_VERSION >= '5.0':
-            applyProfile(self.portal, 'example.p4p5:uninstall-plone5')
+        applyProfile(self.portal, 'example.p4p5:uninstall')
         with api.env.adopt_roles(['Manager']):
             self.qi.uninstallProducts(products=[PROJECTNAME])
         transaction.commit()
