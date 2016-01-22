@@ -43,13 +43,3 @@ EXAMPLE_P4P5_FUNCTIONAL_TESTING = FunctionalTesting(
     bases=(EXAMPLE_P4P5_FIXTURE,),
     name='ExampleP4P5Layer:FunctionalTesting'
 )
-
-
-EXAMPLE_P4P5_ACCEPTANCE_TESTING = FunctionalTesting(
-    bases=(
-        EXAMPLE_P4P5_FIXTURE,
-        REMOTE_LIBRARY_BUNDLE_FIXTURE,
-        z2.ZSERVER_FIXTURE
-    ),
-    name='ExampleP4P5Layer:AcceptanceTesting'
-)
