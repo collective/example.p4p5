@@ -16,7 +16,6 @@ install:
 - bin/buildout annotate
 - bin/buildout -Nq
 script:
-- bin/code-analysis
 - bin/test
 - bin/createcoverage
 after_success:
