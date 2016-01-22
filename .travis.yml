@@ -1,17 +1,27 @@
 language: python
-python:
-  - 2.7
+python: 2.7
+sudo: false
+cache:
+  directories:
+  - eggs
+  - parts/node
+env:
+- PLONE_VERSION=4
+- PLONE_VERSION=5
+matrix:
+  fast_finish: true
 install:
-  - mkdir -p buildout-cache/{eggs,downloads}
-  - python bootstrap-buildout.py -c travis.cfg
-  - bin/buildout -Nc travis.cfg
+- cp plone$PLONE_VERSION.cfg buildout.cfg
+- python bootstrap.py
+- bin/buildout annotate
+- bin/buildout -Nq
 script:
-  - bin/test
-  - bin/createcoverage
+- bin/code-analysis
+- bin/test
+- bin/createcoverage
 after_success:
-  - pip install coveralls
-  - coveralls
-
+- pip install coveralls
+- coveralls
 notifications:
   email:
-    - ebrehault@gmail.com
+  - ebrehault@gmail.com
