@@ -9,6 +9,12 @@ from plone.testing import z2
 
 import example.p4p5
 
+try:
+    from plone.app.upgrade.v50 import final
+    IS_PLONE40 = False
+except ImportError:
+    IS_PLONE40 = True
+
 
 class ExampleP4P5Layer(PloneSandboxLayer):
 
@@ -19,6 +25,10 @@ class ExampleP4P5Layer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'example.p4p5:default')
+        if IS_PLONE40:
+            applyProfile(portal, 'example.p4p5:plone4')
+        else:
+            applyProfile(portal, 'example.p4p5:plone5')
 
 
 EXAMPLE_P4P5_FIXTURE = ExampleP4P5Layer()
