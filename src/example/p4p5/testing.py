@@ -25,6 +25,12 @@ class ExampleP4P5Layer(PloneSandboxLayer):
         else:
             applyProfile(portal, 'example.p4p5:plone4')
 
+    def uninstall(self, portal):
+        with api.env.adopt_roles(['Manager']):
+            portal['portal_quickinstaller'].uninstallProducts(
+                products=["example.p4p5"])
+            if PLONE_VERSION >= '5.0':
+                applyProfile(self.portal, 'example.p4p5:unistall-plone5')
 
 EXAMPLE_P4P5_FIXTURE = ExampleP4P5Layer()
 

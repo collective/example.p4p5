@@ -37,9 +37,9 @@
         />
 
     <genericsetup:registerProfile
-        name="uninstall"
-        title="example.p4p5 (uninstall)"
-        directory="profiles/uninstall"
+        name="uninstall-plone5"
+        title="example.p4p5 (uninstall for Plone 5)"
+        directory="profiles/uninstall-plone5"
         description="Uninstalls example.p4p5"
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />

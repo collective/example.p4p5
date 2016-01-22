@@ -3,12 +3,13 @@
 from example.p4p5.testing import EXAMPLE_P4P5_FUNCTIONAL_TESTING  # noqa
 import Globals
 from plone import api
+from plone.app.testing import applyProfile
 from plone.testing.z2 import Browser
 import transaction
 import unittest
 
 PROJECTNAME = 'example.p4p5'
-
+PLONE_VERSION = api.env.plone_version()
 CSS = '++resource++example.p4p5/chart.css'
 JS = '++resource++example.p4p5/chart.js'
 
@@ -57,6 +58,8 @@ class UninstallTestCase(unittest.TestCase):
         self.browser = Browser(self.layer['app'])
         self.qi = self.portal['portal_quickinstaller']
 
+        if PLONE_VERSION >= '5.0':
+            applyProfile(self.portal, 'example.p4p5:uninstall-plone5')
         with api.env.adopt_roles(['Manager']):
             self.qi.uninstallProducts(products=[PROJECTNAME])
         transaction.commit()
