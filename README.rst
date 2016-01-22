@@ -1,69 +1,50 @@
-.. This README is meant for consumption by humans and pypi. Pypi can render rst files so please do not use Sphinx features.
-   If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide_addons.html
-   This text does not appear on pypi or github. It is a comment.
-
 ==============================================================================
 example.p4p5
 ==============================================================================
 
-Tell me what your product does
+An example to show how to build a Plone add-on compliant for both Plone 4 and Plone 5.
 
-Features
+Content
 --------
 
-- Can be bullet points
+It is a very simple add-on generated with `mr.bob <https://github.com/plone/bobtemplates.plone>`_.
 
+It contains:
 
-Examples
---------
-
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
-
-
-Documentation
--------------
-
-Full documentation for end users can be found in the "docs" folder, and is also available online at http://docs.plone.org/foo/bar
-
-
-Translations
-------------
-
-This product has been translated into
-
-- Klingon (thanks, K'Plai)
-
+- a basic Dexterity type (named Task),
+- a CSS and a JS (`chart.css` and `chart.js`),
+- a view (`/@@all-charts`) which draw a ugly chart about the tasks and which involves `chart.css` and `chart.js`.
 
 Installation
 ------------
 
-Install example.p4p5 by adding it to your buildout::
+There are 3 Generic Setup profiles:
 
-   [buildout]
+- `default`, which contains the non version-specific setup (in our case, that's the Task content-type),
+- `plone4`, which contains JS and CSS declaration for Plone 4,
+- `plone5`, which contains JS and CSS declaration for Plone 5.
 
-    ...
+The `default` profile is automatically imported when we install the add-on, and then we have to manually import `plone4` or `plone5` from the ZMI `portal_setup` depending on our current version of Plone.
 
-    eggs =
-        example.p4p5
+Implementation
+--------------
 
+The Plone 5 approach regarding CSS and JS is based on the current front-end development practices.
+So when we develop the front-end part of our add-on, we might create patterns, have a bunch of LESS files for theming, etc. (see `Mockup <https://mockup-training.readthedocs.org/en/latest/>`_ ), and at the end the all thing is compiled into one single JS and one single CSS, which are declared in a **bundle**.
 
-and then running "bin/buildout"
+In our case, we do not want to use the Plone 5 front-end stack because it would not apply to Plone 4, making the project less maintainable. So the trick is to declare our existing original `chart.css` and `chart.js` as a bundle directly (even if they are not the result of any compilation). Here is how we do it (in `registry.xml`):
 
+.. code-block:: xml
 
-
-Contribute
-----------
-
-- Issue Tracker: https://github.com/collective/example.p4p5/issues
-- Source Code: https://github.com/collective/example.p4p5
-- Documentation: https://docs.plone.org/foo/bar
-
-Support
--------
-
-If you are having issues, please let us know.
-We have a mailing list located at: project@example.com
+    <records prefix="plone.bundles/examplep4p5"
+        interface='Products.CMFPlone.interfaces.IBundleRegistry'>
+        <value key="enabled">True</value>
+        <value key="jscompilation">++resource++example.p4p5/chart.js</value>
+        <value key="csscompilation">++resource++example.p4p5/chart.css</value>
+        <value key="last_compilation">2016-01-01 00:00:00</value>
+        <value key="compile">False</value>
+        <value key="depends">plone</value>
+    </records>
 
 License
 -------
