@@ -1,18 +1,14 @@
 # -*- coding: utf-8 -*-
+from plone import api
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.testing import z2
 
 import example.p4p5
 
-try:
-    from plone.app.upgrade.v50 import final
-    IS_PLONE40 = False
-except ImportError:
-    IS_PLONE40 = True
+PLONE_VERSION = api.env.plone_version()
 
 
 class ExampleP4P5Layer(PloneSandboxLayer):
@@ -24,10 +20,10 @@ class ExampleP4P5Layer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'example.p4p5:default')
-        if IS_PLONE40:
-            applyProfile(portal, 'example.p4p5:plone4')
-        else:
+        if PLONE_VERSION >= '5.0':
             applyProfile(portal, 'example.p4p5:plone5')
+        else:
+            applyProfile(portal, 'example.p4p5:plone4')
 
 
 EXAMPLE_P4P5_FIXTURE = ExampleP4P5Layer()
