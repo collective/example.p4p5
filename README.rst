@@ -15,26 +15,21 @@ It contains:
 - a CSS and a JS (`chart.css` and `chart.js`),
 - a view (`/@@all-charts`) which draw a ugly chart about the tasks and which involves `chart.css` and `chart.js`.
 
-Installation
-------------
+Profiles
+--------
 
-There are 3 Generic Setup installation profiles:
+There are 3 Generic Setup installation profiles for installing:
 
-- `default`, which contains the non version-specific setup (in our case, that's the Task content-type),
-- `plone4`, which contains JS and CSS declaration for Plone 4,
-- `plone5`, which contains JS and CSS declaration for Plone 5.
+- `base`, which contains the non version-specific setup (in our case, that's the Task content-type),
+- `plone4`, which contains JS and CSS declaration for Plone 4, and depends on `base`,
+- `plone5`, which contains JS and CSS declaration for Plone 5, and depends on `base`.
 
-The `default` profile will automatically import the version specific profile depending on the portal's current version.
+The `plone4` or `plone5` profile will automatically imported when we install the add-on depending on the portal's current version.
 
-Uninstall
----------
+Similarly, for unistalling, there are 3 Generic Setup installation profiles (`uninstall-base`, `uninstall-plone4` and `uninstall-plone5`), and it works the same way.
 
-For Plone 4, just uninstall the product from the Quick Installer.
-
-For Plone 5, uninstall the product from the Quick Installer + import the `uninstall-plone5` profile from the ZMI `portal_setup`.
-
-Implementation
---------------
+CSS/JS declaration in Plone 5
+-----------------------------
 
 The Plone 5 approach regarding CSS and JS is based on the current front-end development practices.
 So when we develop the front-end part of our add-on, we might create patterns, have a bunch of LESS files for theming, etc. (see `Mockup <https://mockup-training.readthedocs.org/en/latest/>`_ ), and at the end the all thing is compiled into one single JS and one single CSS, which are declared in a **bundle**.
