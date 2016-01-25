@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Setup tests for this package."""
 from example.p4p5.testing import EXAMPLE_P4P5_FUNCTIONAL_TESTING  # noqa
-import Globals
 from plone import api
-from plone.app.testing import applyProfile
 from plone.testing.z2 import Browser
+
+import Globals
 import transaction
 import unittest
 
@@ -39,11 +39,11 @@ class InstallTestCase(unittest.TestCase):
 
     def test_css_resources(self):
         self.browser.open(self.portal.absolute_url())
-        self.assertTrue(CSS in self.browser.contents)
+        self.assertIn(CSS, self.browser.contents)
 
     def test_js_resources(self):
         self.browser.open(self.portal.absolute_url())
-        self.assertTrue(JS in self.browser.contents)
+        self.assertIn(JS, self.browser.contents)
 
 
 class UninstallTestCase(unittest.TestCase):
@@ -58,7 +58,6 @@ class UninstallTestCase(unittest.TestCase):
         self.browser = Browser(self.layer['app'])
         self.qi = self.portal['portal_quickinstaller']
 
-        applyProfile(self.portal, 'example.p4p5:uninstall')
         with api.env.adopt_roles(['Manager']):
             self.qi.uninstallProducts(products=[PROJECTNAME])
         transaction.commit()
@@ -68,8 +67,8 @@ class UninstallTestCase(unittest.TestCase):
 
     def test_uninstall_css_resources(self):
         self.browser.open(self.portal.absolute_url())
-        self.assertTrue(CSS not in self.browser.contents)
+        self.assertNotIn(CSS, self.browser.contents)
 
     def test_uninstall_js_resources(self):
         self.browser.open(self.portal.absolute_url())
-        self.assertTrue(JS not in self.browser.contents)
+        self.assertNotIn(JS, self.browser.contents)
