@@ -13,7 +13,7 @@ It contains:
 
 - a basic Dexterity type (named Task),
 - a CSS and a JS (`chart.css` and `chart.js`),
-- a view (`/@@all-charts`) which draw a ugly chart about the tasks and which involves `chart.css` and `chart.js`.
+- a view (`/@@all-tasks`) which draw a ugly chart about the tasks and which involves `chart.css` and `chart.js`.
 
 Profiles
 --------
