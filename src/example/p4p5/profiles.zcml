@@ -6,7 +6,7 @@
     i18n_domain="example.p4p5">
 
   <genericsetup:registerProfile
-      name="base"
+      name="install-base"
       title="example.p4p5 base profile"
       directory="profiles/base"
       description="example.p4p5 base profile."

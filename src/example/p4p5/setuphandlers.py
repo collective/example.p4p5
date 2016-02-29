@@ -10,7 +10,7 @@ class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Do not show on Plone's list of installable profiles."""
         return [
-            u'example.p4p5:base',
+            u'example.p4p5:install-base',
             u'example.p4p5:uninstall',
             u'example.p4p5:uninstall-base',
         ]

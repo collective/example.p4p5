@@ -2,6 +2,6 @@
 <metadata>
   <version>1</version>
   <dependencies>
-    <dependency>profile-example.p4p5:base</dependency>
+    <dependency>profile-example.p4p5:install-base</dependency>
   </dependencies>
 </metadata>
